@@ -553,6 +553,88 @@ ctx.font = segments.length > 16
   });
 
   drawWheel();
-</script>
+// ---------------- MAZO VERDAD O RETO ----------------
+const cards = [
+  {type:"VERDAD", text:"Dime qué prenda te gustaría que usara esta noche."},
+  {type:"VERDAD", text:"Cuéntame qué momento juntos te sacó una sonrisa esta semana."},
+  {type:"VERDAD", text:"Dime qué es más sensual para ti: una cena a la luz de velas o una ducha juntos."},
+  {type:"VERDAD", text:"Dime cuál es tu lugar favorito para una cita conmigo."},
+  {type:"RETO", text:"Bésame la frente y luego la mano."},
+  {type:"RETO", text:"Bailemos una canción lenta abrazados."},
+  {type:"RETO", text:"Dame un beso de buenas noches, aunque no sea de noche."},
+  {type:"VERDAD", text:"Dime qué es lo que más deseas de mí esta noche."},
+  {type:"VERDAD", text:"Cuéntame cuál ha sido el momento más sexy que hemos vivido juntos."},
+  {type:"RETO", text:"Dame un masaje de manos de un minuto."},
+  {type:"RETO", text:"Tomémonos una foto abrazados para el recuerdo."},
+  {type:"VERDAD", text:"Susúrrame qué te gustaría que te dijera al oído."},
+  {type:"VERDAD", text:"Cuéntame qué te gustó de cómo nos conocimos."},
+  {type:"RETO", text:"Descríbeme en voz baja tu fantasía favorita conmigo."},
+  {type:"RETO", text:"Abrázame 30 segundos sin soltarme."},
+  {type:"RETO", text:"Apaga las luces y bailemos pegados por 30 segundos."},
+  {type:"VERDAD", text:"Descríbeme tu cita ideal para nuestro aniversario."},
+  {type:"RETO", text:"Muerde suavemente mi labio antes de besarme."},
+  {type:"RETO", text:"Escríbeme una nota de amor ahora mismo y entrégamela."},
+  {type:"VERDAD", text:"Cuéntame qué canción te recuerda a nosotros."},
+  {type:"RETO", text:"Baila para mí de forma sensual por 20 segundos."},
+  {type:"VERDAD", text:"Confiésame una fantasía que te gustaría cumplir conmigo este año."},
+  {type:"RETO", text:"Susúrrame al oído lo que se te antoja hacer esta noche."},
+  {type:"RETO", text:"Quítame una prenda, solo una, sin usar las manos."},
+  {type:"VERDAD", text:"Confiésame qué se te antoja hacer cuando me ves recién bañado o bañada."},
+  {type:"VERDAD", text:"Cuéntame cuál ha sido la mirada más intensa que te he dado."},
+  {type:"VERDAD", text:"Dime en una palabra cómo describes nuestra química."},
+  {type:"VERDAD", text:"Dime qué tan atrevido te pondrías si nadie nos viera esta noche."},
+  {type:"VERDAD", text:"Dime qué fue lo primero que pensaste de mí cuando me conociste."},
+  {type:"VERDAD", text:"Dime cuál es tu zona favorita para que te bese."},
+  {type:"RETO", text:"Susúrrame la hora de nuestra próxima \"cita\" de esta noche."},
+  {type:"VERDAD", text:"Confiésame qué sientes cuando estamos juntos."},
+  {type:"VERDAD", text:"Dime cómo te gusta que te cuide."},
+  {type:"RETO", text:"Recórreme el brazo con besos, desde la mano hasta el hombro."},
+  {type:"VERDAD", text:"Confiésame el lugar más atrevido donde te gustaría besarme."},
+  {type:"VERDAD", text:"Dime qué es lo que más te enciende de mí sin que yo diga nada."},
+  {type:"VERDAD", text:"Dime qué detalle romántico te gustaría recibir más seguido de mí."},
+  {type:"RETO", text:"Dame un cumplido sincero sin usar la palabra \"bonito\" o \"bonita\"."},
+  {type:"RETO", text:"Bésame lento en el cuello."},
+  {type:"RETO", text:"Repíteme el primer piropo que me dijiste."},
+  {type:"VERDAD", text:"Cuéntame cuál ha sido nuestro mejor viaje juntos."},
+  {type:"RETO", text:"Planeemos aquí mismo nuestra próxima cita."},
+  {type:"RETO", text:"Actúa tu recuerdo favorito de nosotros dos."},
+  {type:"VERDAD", text:"Confiésame qué es lo que más admiras de mí."},
+  {type:"VERDAD", text:"Confiésame tu apodo cariñoso favorito para mí."},
+  {type:"RETO", text:"Tómame de la mano y describamos juntos nuestro plan de vida ideal."},
+  {type:"RETO", text:"Dime 3 cosas que amas de mí mirándome a los ojos."},
+  {type:"RETO", text:"Bésame sin usar las manos por 15 segundos."},
+  {type:"RETO", text:"Elige tú dónde darme el próximo beso."},
+  {type:"RETO", text:"Dame un masaje lento en los hombros por un minuto."}
+];
+
+let cardIndex = -1;
+const cardInner = document.getElementById('cardInner');
+const cardTypeLabel = document.getElementById('cardTypeLabel');
+const cardTextLabel = document.getElementById('cardTextLabel');
+const cardNumLabel = document.getElementById('cardNumLabel');
+const drawCardBtn = document.getElementById('drawCardBtn');
+
+function drawCard(){
+  let next;
+  do { next = Math.floor(Math.random() * cards.length); } while (next === cardIndex && cards.length > 1);
+  cardIndex = next;
+  const card = cards[cardIndex];
+  cardTypeLabel.textContent = card.type;
+  cardTypeLabel.className = 'cardType ' + (card.type === 'VERDAD' ? 'verdad' : 'reto');
+  cardTextLabel.textContent = card.text;
+  cardNumLabel.textContent = '#' + String(cardIndex + 1).padStart(2, '0');
+  cardInner.classList.remove('flipped');
+}
+
+cardInner.addEventListener('click', () => {
+  if (cardIndex === -1) { drawCard(); }
+  cardInner.classList.toggle('flipped');
+});
+
+drawCardBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  drawCard();
+  setTimeout(() => cardInner.classList.add('flipped'), 50);
+});</script>
 </body>
 </html>
