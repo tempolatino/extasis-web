@@ -436,7 +436,10 @@
       ctx.rotate(start+angleStep/2);
       ctx.textAlign = 'right';
       ctx.fillStyle = '#F2ECE3';
-      ctx.font = segments.length > 16 ? '11px Inter' : '13px Inter';
+      const isDesktop = window.innerWidth > 768;
+ctx.font = segments.length > 16
+  ? (isDesktop ? '15px Inter' : '11px Inter')
+  : (isDesktop ? '17px Inter' : '13px Inter');
       ctx.fillText(label.length > 22 ? label.slice(0,20)+'…' : label, radius-16, 5);
       ctx.restore();
     });
