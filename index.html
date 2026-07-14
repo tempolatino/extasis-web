@@ -152,12 +152,13 @@
   #wheelStage{position:relative; width:100%; max-width:380px; margin:16px auto;}
   #wheelCanvas{width:100%; height:auto; display:block; filter:drop-shadow(0 0 25px rgba(176,18,42,0.35));}
   #pointer{
-    position:absolute; top:-6px; left:50%; transform:translateX(-50%);
+    position:absolute; top:-28px; left:50%; transform:translateX(-50%);
     width:0; height:0;
-    border-left:14px solid transparent; border-right:14px solid transparent;
-    border-top:24px solid var(--red-bright);
-    filter:drop-shadow(0 0 6px var(--red-glow));
-  }
+    border-left:20px solid transparent; border-right:20px solid transparent;
+    border-top:34px solid var(--red-bright);
+    filter:drop-shadow(0 0 10px var(--red-glow));
+    z-index:10;
+}
   #spinBtn{
     margin-top:10px; padding:14px 40px; border:none; border-radius:30px;
     background:linear-gradient(135deg, var(--red-apple), var(--red-deep));
