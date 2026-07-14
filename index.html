@@ -315,14 +315,25 @@
 
       <!-- VERDAD O RETO -->
       <section class="view" id="view-verdad-reto">
-        <div class="panel">
-          <div class="comingSoon">
-            <div class="icon">🎴</div>
-            <div style="font-family:'Playfair Display', serif; font-size:18px; color:var(--white-warm); margin-bottom:8px;">Verdad o Reto</div>
-            <p>Aquí van tus 50 cartas de Verdad o Reto. Falta conectarlas a esta sección (como mazo digital para tocar y voltear, en vez de solo el PDF). Dime si quieres eso y lo armamos.</p>
-          </div>
+  <div class="panel">
+    <div id="cardStage">
+      <div id="cardInner">
+        <div class="cardFace cardBack">
+          <div class="flame">🔥</div>
+          <div class="brand">ÉXTASIS</div>
+          <div class="tapHint">Toca la carta para revelar</div>
         </div>
-      </section>
+        <div class="cardFace cardFront">
+          <div class="cardType" id="cardTypeLabel"></div>
+          <div class="divider"></div>
+          <div class="cardText" id="cardTextLabel"></div>
+          <div class="cardNum" id="cardNumLabel"></div>
+        </div>
+      </div>
+    </div>
+    <button id="drawCardBtn">Sacar otra carta</button>
+  </div>
+</section>
 
       <!-- RULETA -->
       <section class="view" id="view-ruleta">
