@@ -269,6 +269,50 @@
   padding:8px 10px; border-radius:6px;
 }
 .actPrepCol strong{ color:var(--red-glow); }
+
+/* ---- Consejos de expertos ---- */
+.expertsPanel{ margin-top:26px; text-align:left; }
+.expertsTitle{
+  font-family:'Playfair Display', serif; font-size:17px; color:var(--white-warm);
+  margin-bottom:4px; text-align:center;
+}
+.expertsSub{
+  font-family:'Cormorant Garamond', serif; font-style:italic; color:var(--text-dim);
+  font-size:14px; text-align:center; margin-bottom:18px;
+}
+.expertCol{ margin-bottom:18px; }
+.expertCol:last-child{ margin-bottom:0; }
+.expertColTitle{
+  font-family:'Playfair Display', serif; font-size:15px; margin-bottom:10px; letter-spacing:0.3px;
+}
+.expertColTitle.good{ color:#7CDB8A; }
+.expertColTitle.bad{ color:var(--red-glow); }
+.expertList{ list-style:none; display:flex; flex-direction:column; gap:9px; }
+.expertList li{
+  font-size:13.5px; line-height:1.55; color:#E8DFDA; padding-left:22px; position:relative;
+}
+.expertList.good li::before{ content:"✓"; position:absolute; left:0; top:0; color:#7CDB8A; font-weight:700; }
+.expertList.bad li::before{ content:"✕"; position:absolute; left:0; top:0; color:var(--red-glow); font-weight:700; }
+
+/* ---- Reseñas / testimonios (carrusel) ---- */
+.testiSection{ margin-top:26px; }
+.testiTitle{
+  font-family:'Playfair Display', serif; font-size:17px; color:var(--white-warm);
+  text-align:center; margin-bottom:16px;
+}
+.testiCarousel{ position:relative; overflow:hidden; border-radius:16px; }
+.testiTrack{ display:flex; transition:transform 0.6s ease; }
+.testiCard{
+  min-width:100%; box-sizing:border-box; padding:22px 24px;
+  background:#100C0C; border:1px solid rgba(176,18,42,0.25); border-radius:16px;
+  text-align:center;
+}
+.testiStars{ color:var(--red-bright); font-size:14px; margin-bottom:10px; letter-spacing:2px; }
+.testiText{
+  font-family:'Cormorant Garamond', serif; font-style:italic; font-size:15px;
+  line-height:1.6; color:#EDE4DE; margin-bottom:12px;
+}
+.testiName{ font-size:12.5px; color:var(--text-dim); font-weight:600; letter-spacing:0.3px; }
 </style>
 </head>
 <body>
@@ -331,6 +375,75 @@
             <div class="menuCard" data-view="verdad-reto"><div class="icon">🎴</div><div class="label">Verdad o Reto</div></div>
             <div class="menuCard" data-view="ruleta"><div class="icon">🎡</div><div class="label">Ruleta</div></div>
             <div class="menuCard" data-view="descargables"><div class="icon">📥</div><div class="label">Descargables</div></div>
+          </div>
+
+          <!-- CONSEJOS DE EXPERTOS -->
+          <div class="expertsPanel">
+            <div class="expertsTitle">💡 Consejos de expertos</div>
+            <div class="expertsSub">Pequeños hábitos que mantienen viva la llama</div>
+
+            <div class="expertCol">
+              <div class="expertColTitle good">Qué SÍ hacer</div>
+              <ul class="expertList good">
+                <li>Reserven una "cita" semanal, aunque sea en casa, sin celulares de por medio.</li>
+                <li>Sorprendan al otro con detalles pequeños y sin motivo — una nota, un mensaje a media tarde.</li>
+                <li>Hablen abiertamente de lo que les gusta y lo que quisieran probar juntos, sin pena.</li>
+                <li>Prioricen el contacto físico no sexual: abrazos, tomarse de la mano, masajes cortos.</li>
+                <li>Prueben algo nuevo juntos cada mes — una actividad, un lugar, una receta.</li>
+                <li>Celebren los logros del otro, por pequeños que sean.</li>
+              </ul>
+            </div>
+
+            <div class="expertCol">
+              <div class="expertColTitle bad">Qué NO hacer</div>
+              <ul class="expertList bad">
+                <li>No comparen su relación con la de otras parejas o con lo que ven en redes sociales.</li>
+                <li>No dejen que la rutina reemplace por completo los momentos de conexión.</li>
+                <li>No usen la intimidad como "obligación" o como moneda de cambio.</li>
+                <li>No acumulen resentimientos sin hablarlos a tiempo.</li>
+                <li>No critiquen al otro frente a amigos o familia.</li>
+                <li>No dejen que el celular sea el centro de sus noches juntos.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- RESEÑAS DE PAREJAS -->
+          <div class="testiSection">
+            <div class="testiTitle">💬 Parejas que ya lo probaron</div>
+            <div class="testiCarousel">
+              <div class="testiTrack" id="testiTrack">
+                <div class="testiCard">
+                  <div class="testiStars">★★★★★</div>
+                  <div class="testiText">"Desde que empezamos a usar Éxtasis, volvimos a tener esas pláticas de antes de dormir. Se siente como cuando andábamos de novios."</div>
+                  <div class="testiName">— Mariana R.</div>
+                </div>
+                <div class="testiCard">
+                  <div class="testiStars">★★★★★</div>
+                  <div class="testiText">"La ruleta nos sacó de la rutina total. Ya no se siente que siempre hacemos lo mismo los fines de semana."</div>
+                  <div class="testiName">— Carlos T.</div>
+                </div>
+                <div class="testiCard">
+                  <div class="testiStars">★★★★☆</div>
+                  <div class="testiText">"Al principio me dio pena, pero las actividades están pensadas para ir rompiendo el hielo poco a poco."</div>
+                  <div class="testiName">— Daniela G.</div>
+                </div>
+                <div class="testiCard">
+                  <div class="testiStars">★★★★★</div>
+                  <div class="testiText">"Lo que más me gustó es que no se siente forzado. Cada quien elige qué tan lejos llegar."</div>
+                  <div class="testiName">— Jorge M.</div>
+                </div>
+                <div class="testiCard">
+                  <div class="testiStars">★★★★★</div>
+                  <div class="testiText">"Empezamos a platicar de cosas que nunca nos habíamos atrevido a decir en 5 años juntos."</div>
+                  <div class="testiName">— Paola S.</div>
+                </div>
+                <div class="testiCard">
+                  <div class="testiStars">★★★★☆</div>
+                  <div class="testiText">"Se volvió parte de nuestra rutina de los jueves. Ya hasta lo esperamos."</div>
+                  <div class="testiName">— Andrés L.</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -922,6 +1035,18 @@ document.querySelectorAll('#view-actividades .actItemHeader').forEach(header => 
   header.addEventListener('click', () => {
     header.parentElement.classList.toggle('open');
   });
-});</script>
+});
+
+// ---------------- CARRUSEL DE RESEÑAS ----------------
+(function(){
+  const track = document.getElementById('testiTrack');
+  if (!track) return;
+  const cards = track.querySelectorAll('.testiCard');
+  let testiIndex = 0;
+  setInterval(() => {
+    testiIndex = (testiIndex + 1) % cards.length;
+    track.style.transform = `translateX(-${testiIndex * 100}%)`;
+  }, 10000);
+})();</script>
 </body>
 </html>
