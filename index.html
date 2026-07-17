@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Éxtasis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-black:#0A0A0A;
+    --bg-panel:#161010;
+    --red-deep:#6B0000;
+    --red-apple:#B0122A;
+    --red-bright:#E23A4E;
+    --red-glow:#FF5169;
+    --white-warm:#F2ECE3;
+    --text-dim:#9C8E8E;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 15% 10%, rgba(176,18,42,0.22), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(176,18,42,0.18), transparent 45%),
+      var(--bg-black);
+    min-height:100vh;
+    font-family:'Inter', sans-serif;
+    color:var(--white-warm);
+  }
+
+  /* ---------- LOGIN ---------- */
+  #loginScreen{
+    min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    padding:24px;
+  }
+  #loginCard{
+    width:100%; max-width:380px;
+    background:var(--bg-panel);
+    border:1px solid rgba(176,18,42,0.4);
+    border-radius:18px;
+    padding:40px 28px;
+    text-align:center;
+    box-shadow:0 20px 60px rgba(0,0,0,0.6);
+  }
+  .flame{font-size:34px; margin-bottom:6px;}
+  .brand{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:34px;
+    letter-spacing:2px;
+    color:var(--white-warm);
+    text-shadow:0 0 18px rgba(226,58,78,0.6);
+  }
+  .tagline{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    color:var(--text-dim);
+    font-size:16px;
+    margin-top:4px;
+    margin-bottom:28px;
+  }
+  #loginCard input{
+    width:100%; padding:13px 14px; margin-bottom:12px;
+    border-radius:8px; border:1px solid rgba(255,255,255,0.15);
+    background:#100C0C; color:var(--white-warm); font-size:14px;
+  }
+  #loginCard input:focus{outline:none; border-color:var(--red-bright);}
+  #loginBtn{
+    width:100%; padding:13px; border:none; border-radius:8px;
+    background:linear-gradient(135deg, var(--red-apple), var(--red-deep));
+    color:var(--white-warm); font-weight:600; font-size:15px;
+    letter-spacing:0.5px; cursor:pointer; margin-top:6px;
+  }
+  #loginBtn:hover{filter:brightness(1.1);}
+  #loginError{color:var(--red-glow); font-size:13px; margin-top:10px; min-height:16px;}
+
+  /* ---------- APP SHELL ---------- */
+  #app{display:none;}
+  header.topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 26px;
+    border-bottom:1px solid rgba(176,18,42,0.25);
+  }
+  header.topbar .brandMini{display:flex; align-items:center; gap:8px;}
+  header.topbar .brandMini span.name{
+    font-family:'Playfair Display', serif; font-size:19px; letter-spacing:1px;
+  }
+  #logoutBtn{
+    background:none; border:1px solid rgba(255,255,255,0.2); color:var(--text-dim);
+    padding:7px 16px; border-radius:20px; font-size:12px; cursor:pointer;
+  }
+  #logoutBtn:hover{color:var(--white-warm); border-color:var(--red-bright);}
+
+  nav.menu{
+    display:flex; gap:6px; flex-wrap:wrap;
+    padding:14px 20px;
+    justify-content:center;
+    border-bottom:1px solid rgba(176,18,42,0.15);
+  }
+  nav.menu button{
+    background:transparent; border:1px solid rgba(176,18,42,0.35);
+    color:var(--text-dim); padding:9px 18px; border-radius:24px;
+    font-size:13px; cursor:pointer; transition:all .2s;
+    font-family:'Inter', sans-serif;
+  }
+  nav.menu button.active, nav.menu button:hover{
+    background:linear-gradient(135deg, var(--red-apple), var(--red-deep));
+    color:var(--white-warm); border-color:transparent;
+  }
+
+  main{max-width:640px; margin:0 auto; padding:30px 20px 60px;}
+  .view{display:none;}
+  .view.active{display:block;}
+
+  .panel{
+    background:var(--bg-panel);
+    border:1px solid rgba(176,18,42,0.3);
+    border-radius:18px;
+    padding:30px 24px;
+    text-align:center;
+  }
+
+  /* ---- Inicio / Misión y Visión ---- */
+  .heroTitle{
+    font-family:'Playfair Display', serif; font-size:28px; margin-bottom:6px;
+  }
+  .heroTagline{
+    font-family:'Cormorant Garamond', serif; font-style:italic; color:var(--text-dim);
+    font-size:17px; margin-bottom:26px;
+  }
+  .mvBlock{text-align:left; margin-bottom:20px;}
+  .mvBlock h3{
+    font-family:'Playfair Display', serif; color:var(--red-bright); font-size:16px;
+    margin-bottom:8px; letter-spacing:0.5px;
+  }
+  .mvBlock p{font-size:14.5px; line-height:1.65; color:#E8DFDA;}
+
+  .menuGrid{
+    display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:24px;
+  }
+  .menuCard{
+    background:#100C0C; border:1px solid rgba(176,18,42,0.25);
+    border-radius:14px; padding:20px 14px; cursor:pointer;
+    transition:all .2s;
+  }
+  .menuCard:hover{border-color:var(--red-bright); transform:translateY(-2px);}
+  .menuCard .icon{font-size:26px; margin-bottom:8px;}
+  .menuCard .label{font-size:13px; font-weight:600;}
+
+  /* ---- Ruleta ---- */
+  #wheelStage{position:relative; width:100%; max-width:380px; margin:16px auto;}
+  #wheelCanvas{width:100%; height:auto; display:block; filter:drop-shadow(0 0 25px rgba(176,18,42,0.35));}
+  #pointer{
+    position:absolute; top:-28px; left:50%; transform:translateX(-50%);
+    width:0; height:0;
+    border-left:20px solid transparent; border-right:20px solid transparent;
+    border-top:34px solid var(--red-bright);
+    filter:drop-shadow(0 0 10px var(--red-glow));
+    z-index:10;
+}
+  #spinBtn{
+    margin-top:10px; padding:14px 40px; border:none; border-radius:30px;
+    background:linear-gradient(135deg, var(--red-apple), var(--red-deep));
+    color:var(--white-warm); font-weight:600; font-size:16px;
+    letter-spacing:1px; cursor:pointer;
+  }
+  #spinBtn:hover{filter:brightness(1.1);}
+  #spinBtn:disabled{opacity:0.5; cursor:default;}
+
+  #resultModal{
+    display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75);
+    align-items:center; justify-content:center; z-index:50;
+  }
+  #resultCard{
+    background:var(--bg-panel); border:1px solid var(--red-bright);
+    border-radius:18px; padding:36px 30px; text-align:center; max-width:320px;
+  }
+  #resultText{font-family:'Playfair Display', serif; font-size:22px; margin:14px 0 22px;}
+  #closeResult{padding:10px 26px; border:none; border-radius:24px; background:var(--red-apple); color:var(--white-warm); cursor:pointer;}
+
+  /* ---- Placeholder secciones ---- */
+  .comingSoon{padding:60px 20px; color:var(--text-dim); font-size:14px;}
+  .comingSoon .icon{font-size:38px; margin-bottom:14px;}
+/* ---- Mazo Verdad o Reto ---- */
+#cardStage{
+  perspective:1200px;
+  width:100%; max-width:320px;
+  margin:20px auto;
+  aspect-ratio: 3/4;
+}
+#cardInner{
+  position:relative; width:100%; height:100%;
+  transition:transform 0.6s;
+  transform-style:preserve-3d;
+  cursor:pointer;
+}
+#cardInner.flipped{ transform:rotateY(180deg); }
+.cardFace{
+  position:absolute; width:100%; height:100%;
+  backface-visibility:hidden;
+  border-radius:16px;
+  border:1px solid rgba(226,58,78,0.5);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:24px;
+  background:
+    radial-gradient(circle at 50% 15%, rgba(176,18,42,0.35), transparent 60%),
+    var(--bg-panel);
+  box-shadow:0 20px 50px rgba(0,0,0,0.5);
+}
+.cardBack{ }
+.cardBack .flame{font-size:40px;}
+.cardBack .brand{font-family:'Playfair Display', serif; font-size:22px; letter-spacing:2px; margin-top:4px;}
+.cardBack .tapHint{font-size:12px; color:var(--text-dim); margin-top:18px;}
+
+.cardFront{ transform:rotateY(180deg); }
+.cardFront .cardType{
+  font-family:'Playfair Display', serif; font-size:26px; letter-spacing:2px;
+  margin-bottom:14px;
+}
+.cardFront .cardType.verdad{ color:#F2ECE3; }
+.cardFront .cardType.reto{ color:var(--red-glow); }
+.cardFront .divider{ width:70px; height:1px; background:rgba(255,255,255,0.25); margin-bottom:22px; }
+.cardFront .cardText{ font-size:16px; line-height:1.5; color:#EDE4DE; }
+.cardFront .cardNum{
+  position:absolute; bottom:16px; left:20px; font-size:12px; color:var(--text-dim); font-weight:600;
+}
+
+#drawCardBtn{
+  margin-top:18px; padding:14px 36px; border:none; border-radius:30px;
+  background:linear-gradient(135deg, var(--red-apple), var(--red-deep));
+  color:var(--white-warm); font-weight:600; font-size:15px; letter-spacing:0.5px; cursor:pointer;
+}
+#drawCardBtn:hover{ filter:brightness(1.1); }
+</style>
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div id="loginScreen">
+    <div id="loginCard">
+      <img src="logo.png" alt="Éxtasis" style="max-width:220px; width:100%; height:auto; margin-bottom:10px;">
+      <input type="email" id="email" placeholder="Correo electrónico" autocomplete="username">
+      <input type="password" id="password" placeholder="Contraseña" autocomplete="current-password">
+      <button id="loginBtn">Entrar</button>
+      <div id="loginError"></div>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div id="app">
+    <header class="topbar">
+      <div class="brandMini">
+        <img src="logo.png" alt="Éxtasis" style="height:32px; width:auto;">
+      </div>
+      <button id="logoutBtn">Cerrar sesión</button>
+    </header>
+
+    <nav class="menu">
+      <button data-view="inicio" class="active">Inicio</button>
+      <button data-view="reto-diario">Reto diario</button>
+      <button data-view="verdad-reto">Verdad o Reto</button>
+      <button data-view="ruleta">Ruleta</button>
+      <button data-view="actividades">Actividades juntos</button>
+      <button data-view="descargables">Descargables</button>
+    </nav>
+
+    <main>
+
+      <!-- INICIO / MISIÓN Y VISIÓN -->
+      <section class="view active" id="view-inicio">
+        <div class="panel" style="text-align:left;">
+          <div style="text-align:center;">
+            <img src="logo.png" alt="Éxtasis" style="max-width:260px; width:100%; height:auto; margin-bottom:8px;">
+          </div>
+
+          <div class="mvBlock">
+            <h3>NUESTRA MISIÓN</h3>
+            <p>Ayudar a las parejas a reconectar de verdad — a salir de la rutina, a reírse juntas, a descubrirse de nuevo. Creamos experiencias pensadas para que hablen, se toquen, se rían y se sorprendan, fortaleciendo la confianza y la complicidad que el día a día a veces deja en pausa.</p>
+          </div>
+
+          <div class="mvBlock">
+            <h3>NUESTRA VISIÓN</h3>
+            <p>Ser la forma favorita en que las parejas encuentran nuevas maneras de disfrutarse — dentro y fuera de la rutina — construyendo relaciones más fuertes, más juguetonas y más presentes la una con la otra.</p>
+          </div>
+
+          <div class="mvBlock">
+            <h3>PARA QUÉ SIRVE ÉXTASIS</h3>
+            <p>Cada sección de esta app es una excusa distinta para conectar: un reto rápido para el día a día, una noche de verdad o reto entre los dos, una ruleta para dejar que el azar decida, y actividades pensadas para complementarse y verse con otros ojos.</p>
+          </div>
+
+          <div class="menuGrid">
+            <div class="menuCard" data-view="reto-diario"><div class="icon">☀️</div><div class="label">Reto diario</div></div>
+            <div class="menuCard" data-view="verdad-reto"><div class="icon">🎴</div><div class="label">Verdad o Reto</div></div>
+            <div class="menuCard" data-view="ruleta"><div class="icon">🎡</div><div class="label">Ruleta</div></div>
+            <div class="menuCard" data-view="descargables"><div class="icon">📥</div><div class="label">Descargables</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RETO DIARIO -->
+      <section class="view" id="view-reto-diario">
+        <div class="panel">
+          <div class="comingSoon">
+            <div class="icon">☀️</div>
+            <div style="font-family:'Playfair Display', serif; font-size:18px; color:var(--white-warm); margin-bottom:8px;">Reto del día</div>
+            <p>Aquí va a aparecer un reto distinto cada día. Pendiente de definir la lista de retos y la lógica de "uno por día" — dime cómo lo quieres armar y lo conectamos.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- VERDAD O RETO -->
+      <section class="view" id="view-verdad-reto">
+  <div class="panel">
+    <div id="cardStage">
+      <div id="cardInner">
+        <div class="cardFace cardBack">
+          <img src="logo.png" alt="Éxtasis" style="max-width:140px; width:70%; height:auto; margin-bottom:8px;">
+          <div class="tapHint">Toca la carta para revelar</div>
+        </div>
+        <div class="cardFace cardFront">
+          <div class="cardType" id="cardTypeLabel"></div>
+          <div class="divider"></div>
+          <div class="cardText" id="cardTextLabel"></div>
+          <div class="cardNum" id="cardNumLabel"></div>
+        </div>
+      </div>
+    </div>
+    <button id="drawCardBtn">Sacar otra carta</button>
+  </div>
+</section>
+
+      <!-- RULETA -->
+      <section class="view" id="view-ruleta">
+        <div class="panel">
+          <div id="wheelStage">
+            <div id="pointer"></div>
+            <canvas id="wheelCanvas" width="600" height="600"></canvas>
+          </div>
+          <button id="spinBtn">Girar</button>
+        </div>
+      </section>
+
+      <!-- ACTIVIDADES JUNTOS -->
+      <section class="view" id="view-actividades">
+        <div class="panel">
+          <div class="comingSoon">
+            <div class="icon">💫</div>
+            <div style="font-family:'Playfair Display', serif; font-size:18px; color:var(--white-warm); margin-bottom:8px;">Actividades juntos</div>
+            <p>Sección reservada — cuéntame qué quieres poner aquí (planes, ideas de citas, ejercicios de pareja, etc.) y la armamos.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- DESCARGABLES -->
+      <section class="view" id="view-descargables">
+        <div class="panel">
+          <div class="comingSoon">
+            <div class="icon">📥</div>
+            <div style="font-family:'Playfair Display', serif; font-size:18px; color:var(--white-warm); margin-bottom:8px;">Descargables</div>
+            <p>Aquí van los PDFs imprimibles (cartas de Verdad o Reto, etc.). Falta que me pases los archivos finales para dejarlos con botón de descarga.</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- RESULT MODAL (ruleta) -->
+  <div id="resultModal">
+    <div id="resultCard">
+      <img src="logo.png" alt="Éxtasis" style="max-width:70px; width:100%; height:auto; margin:0 auto;">
+      <div id="resultText"></div>
+      <button id="closeResult">Cerrar</button>
+    </div>
+  </div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import {
+    getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCGAPUUqXLDPEidb1cEew1gLn7PwzyNP4I",
+    authDomain: "extasis-app-db2ab.firebaseapp.com",
+    projectId: "extasis-app-db2ab",
+    storageBucket: "extasis-app-db2ab.firebasestorage.app",
+    messagingSenderId: "590269488235",
+    appId: "1:590269488235:web:828c72323c0b64cb50a52e"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const loginScreen = document.getElementById('loginScreen');
+  const appScreen   = document.getElementById('app');
+  const loginBtn    = document.getElementById('loginBtn');
+  const logoutBtn   = document.getElementById('logoutBtn');
+  const loginError  = document.getElementById('loginError');
+
+  loginBtn.addEventListener('click', () => {
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    loginError.textContent = '';
+    signInWithEmailAndPassword(auth, email, password)
+      .catch(() => { loginError.textContent = 'Correo o contraseña incorrectos.'; });
+  });
+
+  logoutBtn.addEventListener('click', () => signOut(auth));
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      loginScreen.style.display = 'none';
+      appScreen.style.display = 'block';
+    } else {
+      loginScreen.style.display = 'flex';
+      appScreen.style.display = 'none';
+    }
+  });
+
+  // ---------------- NAVEGACIÓN DEL MENÚ ----------------
+  function showView(name){
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('nav.menu button').forEach(b => b.classList.remove('active'));
+    document.getElementById('view-' + name).classList.add('active');
+    const navBtn = document.querySelector(`nav.menu button[data-view="${name}"]`);
+    if (navBtn) navBtn.classList.add('active');
+    window.scrollTo(0,0);
+  }
+  document.querySelectorAll('[data-view]').forEach(el => {
+    el.addEventListener('click', () => showView(el.dataset.view));
+  });
+
+  // ================================================================
+  // ============  AQUÍ EDITAS LOS TEXTOS DE LA RULETA  =============
+  // Reemplaza cada texto entre comillas por el que tú quieras.
+  // Puedes agregar o quitar líneas (separadas por comas).
+  // Estos textos YA NO son editables desde la página — solo aquí
+  // en el código, así que nadie más los puede cambiar.
+  // ================================================================
+  let segments = [
+    "Misionero viendose a los ojos",
+    "De perrito",
+    "Sentados, ella arriba de espaldas",
+    "Acostados el abajo",
+    "Oral a Él",
+    "Oral a Ella",
+    "Reto 69",
+    "Bañándose",
+    "En el sillón",
+    "En el auto",
+    "En unas escaleras",
+    "Tócalo mientras van en el auto",
+    "Tócala  mientras van en el auto",
+    "En una silla o banco",
+    "Sentados en el centro de la cama",
+    "Nalgadas y jalon de cabello",
+    "Agarrale las nalgas a El mientras te da duro",
+    "Termina en su pecho",
+    "19. Tocala con una mano y la otra en el pecho",
+    "Bailale a El",
+    "Bailale a Ella",
+    "Siéntate en su cara para oral",
+    "Usen un juguete en El",
+    "24. Usen un juguete en Ella"
+
+  ];
+  // ================================================================
+
+  const canvas = document.getElementById('wheelCanvas');
+  const ctx = canvas.getContext('2d');
+  const colors = ['#B0122A', '#0A0A0A'];
+
+  function drawWheel(){
+    const size = canvas.width;
+    const radius = size/2;
+    const angleStep = (2*Math.PI)/segments.length;
+    ctx.clearRect(0,0,size,size);
+    segments.forEach((label, i) => {
+      const start = i*angleStep;
+      const end = start+angleStep;
+      ctx.beginPath();
+      ctx.moveTo(radius, radius);
+      ctx.arc(radius, radius, radius-4, start, end);
+      ctx.closePath();
+      ctx.fillStyle = colors[i % colors.length];
+      ctx.fill();
+
+      ctx.save();
+      ctx.translate(radius, radius);
+      ctx.rotate(start+angleStep/2);
+      ctx.textAlign = 'right';
+      ctx.fillStyle = '#F2ECE3';
+      const isDesktop = window.innerWidth > 768;
+ctx.font = segments.length > 16
+  ? (isDesktop ? '15px Inter' : '11px Inter')
+  : (isDesktop ? '17px Inter' : '13px Inter');
+      ctx.fillText(label.length > 22 ? label.slice(0,20)+'…' : label, radius-16, 5);
+      ctx.restore();
+    });
+  }
+
+  let rotation = 0;
+  let spinning = false;
+
+  document.getElementById('spinBtn').addEventListener('click', () => {
+    if (spinning) return;
+    spinning = true;
+    document.getElementById('spinBtn').disabled = true;
+
+    const extraTurns = 6 + Math.random()*3;
+    const finalAngle = Math.random()*2*Math.PI;
+    const totalRotation = extraTurns*2*Math.PI + finalAngle;
+
+    const duration = 4200;
+    const startTime = performance.now();
+    const startRotation = rotation;
+
+    function animate(now){
+      const elapsed = now - startTime;
+      const t = Math.min(elapsed/duration, 1);
+      const eased = 1 - Math.pow(1-t, 4);
+      const currentRotation = startRotation + totalRotation*eased;
+      canvas.style.transform = `rotate(${currentRotation}rad)`;
+      if (t < 1){
+        requestAnimationFrame(animate);
+      } else {
+        rotation = (startRotation + totalRotation) % (2*Math.PI);
+        spinning = false;
+        document.getElementById('spinBtn').disabled = false;
+        showResult(currentRotation);
+      }
+    }
+    requestAnimationFrame(animate);
+  });
+
+  function showResult(finalRotationRad){
+    const angleStep = (2*Math.PI)/segments.length;
+    const normalized = ((2*Math.PI) - (finalRotationRad % (2*Math.PI)) + (Math.PI*1.5)) % (2*Math.PI);
+    const index = Math.floor(normalized/angleStep) % segments.length;
+    document.getElementById('resultText').textContent = segments[index];
+    document.getElementById('resultModal').style.display = 'flex';
+  }
+
+  document.getElementById('closeResult').addEventListener('click', () => {
+    document.getElementById('resultModal').style.display = 'none';
+  });
+
+  drawWheel();
+// ---------------- MAZO VERDAD O RETO ----------------
+const cards = [
+  {type:"VERDAD", text:"Dime qué prenda te gustaría que usara esta noche."},
+  {type:"VERDAD", text:"Cuéntame qué momento juntos te sacó una sonrisa esta semana."},
+  {type:"VERDAD", text:"Dime qué es más sensual para ti: una cena a la luz de velas o una ducha juntos."},
+  {type:"VERDAD", text:"Dime cuál es tu lugar favorito para una cita conmigo."},
+  {type:"RETO", text:"Bésame la frente y luego la mano."},
+  {type:"RETO", text:"Bailemos una canción lenta abrazados."},
+  {type:"RETO", text:"Dame un beso de buenas noches, aunque no sea de noche."},
+  {type:"VERDAD", text:"Dime qué es lo que más deseas de mí esta noche."},
+  {type:"VERDAD", text:"Cuéntame cuál ha sido el momento más sexy que hemos vivido juntos."},
+  {type:"RETO", text:"Dame un masaje de manos de un minuto."},
+  {type:"RETO", text:"Tomémonos una foto abrazados para el recuerdo."},
+  {type:"VERDAD", text:"Susúrrame qué te gustaría que te dijera al oído."},
+  {type:"VERDAD", text:"Cuéntame qué te gustó de cómo nos conocimos."},
+  {type:"RETO", text:"Descríbeme en voz baja tu fantasía favorita conmigo."},
+  {type:"RETO", text:"Abrázame 30 segundos sin soltarme."},
+  {type:"RETO", text:"Apaga las luces y bailemos pegados por 30 segundos."},
+  {type:"VERDAD", text:"Descríbeme tu cita ideal para nuestro aniversario."},
+  {type:"RETO", text:"Muerde suavemente mi labio antes de besarme."},
+  {type:"RETO", text:"Escríbeme una nota de amor ahora mismo y entrégamela."},
+  {type:"VERDAD", text:"Cuéntame qué canción te recuerda a nosotros."},
+  {type:"RETO", text:"Baila para mí de forma sensual por 20 segundos."},
+  {type:"VERDAD", text:"Confiésame una fantasía que te gustaría cumplir conmigo este año."},
+  {type:"RETO", text:"Susúrrame al oído lo que se te antoja hacer esta noche."},
+  {type:"RETO", text:"Quítame una prenda, solo una, sin usar las manos."},
+  {type:"VERDAD", text:"Confiésame qué se te antoja hacer cuando me ves recién bañado o bañada."},
+  {type:"VERDAD", text:"Cuéntame cuál ha sido la mirada más intensa que te he dado."},
+  {type:"VERDAD", text:"Dime en una palabra cómo describes nuestra química."},
+  {type:"VERDAD", text:"Dime qué tan atrevido te pondrías si nadie nos viera esta noche."},
+  {type:"VERDAD", text:"Dime qué fue lo primero que pensaste de mí cuando me conociste."},
+  {type:"VERDAD", text:"Dime cuál es tu zona favorita para que te bese."},
+  {type:"RETO", text:"Susúrrame la hora de nuestra próxima \"cita\" de esta noche."},
+  {type:"VERDAD", text:"Confiésame qué sientes cuando estamos juntos."},
+  {type:"VERDAD", text:"Dime cómo te gusta que te cuide."},
+  {type:"RETO", text:"Recórreme el brazo con besos, desde la mano hasta el hombro."},
+  {type:"VERDAD", text:"Confiésame el lugar más atrevido donde te gustaría besarme."},
+  {type:"VERDAD", text:"Dime qué es lo que más te enciende de mí sin que yo diga nada."},
+  {type:"VERDAD", text:"Dime qué detalle romántico te gustaría recibir más seguido de mí."},
+  {type:"RETO", text:"Dame un cumplido sincero sin usar la palabra \"bonito\" o \"bonita\"."},
+  {type:"RETO", text:"Bésame lento en el cuello."},
+  {type:"RETO", text:"Repíteme el primer piropo que me dijiste."},
+  {type:"VERDAD", text:"Cuéntame cuál ha sido nuestro mejor viaje juntos."},
+  {type:"RETO", text:"Planeemos aquí mismo nuestra próxima cita."},
+  {type:"RETO", text:"Actúa tu recuerdo favorito de nosotros dos."},
+  {type:"VERDAD", text:"Confiésame qué es lo que más admiras de mí."},
+  {type:"VERDAD", text:"Confiésame tu apodo cariñoso favorito para mí."},
+  {type:"RETO", text:"Tómame de la mano y describamos juntos nuestro plan de vida ideal."},
+  {type:"RETO", text:"Dime 3 cosas que amas de mí mirándome a los ojos."},
+  {type:"RETO", text:"Bésame sin usar las manos por 15 segundos."},
+  {type:"RETO", text:"Elige tú dónde darme el próximo beso."},
+  {type:"RETO", text:"Dame un masaje lento en los hombros por un minuto."}
+];
+
+let cardIndex = -1;
+const cardInner = document.getElementById('cardInner');
+const cardTypeLabel = document.getElementById('cardTypeLabel');
+const cardTextLabel = document.getElementById('cardTextLabel');
+const cardNumLabel = document.getElementById('cardNumLabel');
+const drawCardBtn = document.getElementById('drawCardBtn');
+
+function drawCard(){
+  let next;
+  do { next = Math.floor(Math.random() * cards.length); } while (next === cardIndex && cards.length > 1);
+  cardIndex = next;
+  const card = cards[cardIndex];
+  cardTypeLabel.textContent = card.type;
+  cardTypeLabel.className = 'cardType ' + (card.type === 'VERDAD' ? 'verdad' : 'reto');
+  cardTextLabel.textContent = card.text;
+  cardNumLabel.textContent = '#' + String(cardIndex + 1).padStart(2, '0');
+  cardInner.classList.remove('flipped');
+}
+
+cardInner.addEventListener('click', () => {
+  if (cardIndex === -1) { drawCard(); }
+  cardInner.classList.toggle('flipped');
+});
+
+drawCardBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  drawCard();
+  setTimeout(() => cardInner.classList.add('flipped'), 50);
+});</script>
+</body>
+</html>
