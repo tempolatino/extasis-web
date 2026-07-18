@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Términos y Privacidad — Éxtasis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0A0A0A;
+    --bg-panel: #150F0F;
+    --red-apple: #B0122A;
+    --red-deep: #6B0000;
+    --red-bright: #E23A4E;
+    --red-glow: #FF5169;
+    --white-warm: #F2ECE3;
+    --text-dim: #B4A5A5;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; padding:0;
+    background:
+      radial-gradient(circle at 15% 10%, rgba(176,18,42,0.18), transparent 45%),
+      radial-gradient(circle at 85% 90%, rgba(176,18,42,0.14), transparent 45%),
+      var(--bg);
+    color:var(--white-warm);
+    font-family:'Inter', sans-serif;
+    min-height:100vh;
+  }
+  .wrap{ max-width:680px; margin:0 auto; padding:48px 24px 80px; }
+  .flame{ font-size:30px; text-align:center; margin-bottom:4px; }
+  h1{
+    font-family:'Playfair Display', serif; font-weight:900;
+    font-size:30px; text-align:center; letter-spacing:1px;
+    margin:0 0 4px; text-shadow:0 0 18px rgba(226,58,78,0.5);
+  }
+  .sub{
+    font-family:'Cormorant Garamond', serif; font-style:italic; color:var(--text-dim);
+    text-align:center; font-size:16px; margin-bottom:36px;
+  }
+  .panel{
+    background:var(--bg-panel); border:1px solid rgba(176,18,42,0.3);
+    border-radius:16px; padding:26px 24px; margin-bottom:20px;
+  }
+  h2{
+    font-family:'Playfair Display', serif; font-size:19px; color:var(--red-glow);
+    margin:0 0 14px;
+  }
+  h3{
+    font-family:'Playfair Display', serif; font-size:15.5px; color:var(--white-warm);
+    margin:20px 0 8px;
+  }
+  p, li{ font-size:14px; line-height:1.65; color:#E8DFDA; }
+  ul{ padding-left:20px; margin:8px 0; }
+  li{ margin-bottom:6px; }
+  .updated{ font-size:12.5px; color:var(--text-dim); text-align:center; margin-top:30px; }
+  a{ color:var(--red-glow); }
+  .back{
+    display:inline-block; margin-bottom:26px; color:var(--text-dim);
+    text-decoration:none; font-size:13.5px;
+  }
+  .back:hover{ color:var(--red-glow); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="index.html">← Volver</a>
+    <div class="flame">🔥</div>
+    <h1>ÉXTASIS</h1>
+    <div class="sub">Términos de Uso y Aviso de Privacidad</div>
+
+    <!-- TÉRMINOS DE USO -->
+    <div class="panel" id="terminos">
+      <h2>Términos de Uso</h2>
+
+      <h3>1. Naturaleza del servicio</h3>
+      <p>Éxtasis es una experiencia digital privada dirigida a parejas adultas, pensada para fomentar actividades, dinámicas y conversación en pareja. El acceso es estrictamente personal y para uso entre las dos personas que lo adquieren.</p>
+
+      <h3>2. Edad mínima</h3>
+      <p>Este servicio está disponible únicamente para personas mayores de 18 años. Al crear una cuenta, confirmas bajo tu responsabilidad que cumples con este requisito.</p>
+
+      <h3>3. Uso privado y responsable</h3>
+      <ul>
+        <li>Todo el contenido y las dinámicas sugeridas dentro de la experiencia son de común acuerdo entre ambas personas; en cualquier momento cualquiera puede detener o saltar una actividad.</li>
+        <li>El servicio no sustituye asesoría médica, psicológica o de pareja profesional.</li>
+        <li>El acceso es personal e intransferible; no está permitido compartir tus credenciales fuera de tu propia pareja.</li>
+      </ul>
+
+      <h3>4. Pagos</h3>
+      <p>El acceso se otorga tras confirmar el pago correspondiente. Al tratarse de contenido digital de acceso inmediato, no se ofrecen reembolsos una vez entregado el acceso, salvo error comprobable de cobro.</p>
+
+      <h3>5. Cancelación</h3>
+      <p>Puedes solicitar la eliminación de tu cuenta y tus datos en cualquier momento escribiendo al medio de contacto indicado al final de esta página.</p>
+
+      <h3>6. Modificaciones</h3>
+      <p>Estos términos pueden actualizarse ocasionalmente para reflejar cambios en el servicio. La versión vigente siempre estará disponible en esta misma página.</p>
+    </div>
+
+    <!-- AVISO DE PRIVACIDAD -->
+    <div class="panel" id="privacidad">
+      <h2>Aviso de Privacidad</h2>
+
+      <h3>1. Datos que recopilamos</h3>
+      <p>Para crear tu cuenta únicamente solicitamos tu correo electrónico y una contraseña, gestionados de forma segura a través de Firebase Authentication (Google). No solicitamos ni almacenamos datos de identidad, fotografías, ni información de tu pareja.</p>
+
+      <h3>2. Uso de tus datos</h3>
+      <ul>
+        <li>Tu correo se usa únicamente para identificar tu cuenta y, en caso necesario, contactarte sobre tu acceso.</li>
+        <li>No vendemos, rentamos ni compartimos tu información con terceros con fines publicitarios.</li>
+        <li>No asociamos tu actividad dentro de la experiencia a tu identidad real más allá del correo de acceso.</li>
+      </ul>
+
+      <h3>3. Discreción</h3>
+      <p>Entendemos la naturaleza privada de este servicio. No enviamos comunicaciones con el nombre "Éxtasis" visible por canales que puedan comprometer tu privacidad (por ejemplo, evitamos asuntos de correo explícitos), y el acceso se realiza siempre mediante inicio de sesión personal.</p>
+
+      <h3>4. Tus derechos</h3>
+      <p>Puedes solicitar en cualquier momento acceder, corregir o eliminar tus datos, escribiéndonos al contacto abajo indicado. Atenderemos tu solicitud en un plazo razonable.</p>
+
+      <h3>5. Contacto</h3>
+      <p>Para dudas sobre estos términos o tu privacidad, escríbenos por el canal de contacto proporcionado al momento de tu compra.</p>
+    </div>
+
+    <div class="updated">Última actualización: julio de 2026</div>
+  </div>
+</body>
+</html>
